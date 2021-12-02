@@ -1,7 +1,9 @@
 package com.example.todoapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
-    private TextView signUpButton;
+    private TextView signUpButton, forgotPasswordButton;
     private Button loginButton;
+    private FirebaseAuth auth;
+    private ProgressDialog loadingBar;
 
 
     @Override
@@ -25,6 +33,9 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.inputPassword);
         loginButton = findViewById(R.id.buttonLogin);
         signUpButton = findViewById(R.id.textViewSignUp);
+        forgotPasswordButton = findViewById(R.id.forgotPassword);
+        auth = FirebaseAuth.getInstance();
+        loadingBar = new ProgressDialog(LoginActivity.this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +50,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
+
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ForgotPassword.class));
+            }
+        });
     }
 
     private void checkCredentials() {
@@ -51,7 +69,25 @@ public class LoginActivity extends AppCompatActivity {
             showError(inputPassword, "Password is not valid! Password must be 8 character.");
         }
         else {
-            Toast.makeText(this,"Call Registration Method!",Toast.LENGTH_SHORT).show();
+           loadingBar.setTitle("Login");
+           loadingBar.setMessage("Please wait, while check your credentials");
+           loadingBar.setCanceledOnTouchOutside(false);
+           loadingBar.show();
+
+            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
+                        loadingBar.dismiss();
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(LoginActivity.this,task.getException().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
         }
     }
 

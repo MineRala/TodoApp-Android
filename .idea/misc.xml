@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_security.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/input_bg.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.23007246376811594" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14402173913043478" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />

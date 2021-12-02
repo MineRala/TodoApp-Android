@@ -1,7 +1,9 @@
 package com.example.todoapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +12,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class RegisterActivity extends AppCompatActivity {
     private EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
     private TextView alreadyHaveAnAccountButton;
     private Button registerButton;
+    private FirebaseAuth auth;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
         inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
         alreadyHaveAnAccountButton = findViewById(R.id.textViewalreadyHaveAccount);
         registerButton = findViewById(R.id.buttonRegister);
+        auth = FirebaseAuth.getInstance();
+        loadingBar = new ProgressDialog(RegisterActivity.this);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +68,24 @@ public class RegisterActivity extends AppCompatActivity {
             showError(inputConfirmPassword,"Password not match!");
         }
         else {
-            Toast.makeText(this,"Call Registration Method!",Toast.LENGTH_SHORT).show();
+            loadingBar.setTitle("Registration");
+            loadingBar.setMessage("Please wait, while check your credentials.");
+            loadingBar.setCanceledOnTouchOutside(false);
+            loadingBar.show();
+
+            auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
+                        loadingBar.dismiss();
+                        Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(RegisterActivity.this,task.getException().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
