@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TodoApp</string>
+    <string name="register">Register</string>
+    <string name="button_register">Regıster</string>
+    <string name="already_have_an_account">Already Have an Account</string>
+
 </resources>
