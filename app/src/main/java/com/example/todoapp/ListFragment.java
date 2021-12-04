@@ -1,18 +1,19 @@
 package com.example.todoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class ListFragment extends Fragment {
 
@@ -38,17 +39,43 @@ public class ListFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_list,menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        final MenuItem search = menu.findItem(R.id.search);
+        final SearchView searchView = (SearchView) search.getActionView();
+        searchView.setQueryHint("Search here");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // filtreleme burada yapılacak
+                // adapter.getFilter().filter(newText)
+                // return true;
+                return false;
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.search) {
-            Toast.makeText(getActivity(), "Search", Toast.LENGTH_SHORT).show();
+            return false;
         }
         if (id == R.id.add) {
-            Toast.makeText(getActivity(), "Add", Toast.LENGTH_SHORT).show();
+            goToAddItemPage();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToAddItemPage() {
+        Fragment fragment = null;
+        fragment = new AddFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+
     }
 }
