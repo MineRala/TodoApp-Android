@@ -73,6 +73,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         getActivity().setTitle("Profile");
+        MainActivity.getInstance().bottomNavigationView.setVisibility(View.VISIBLE);
         usernameText = view.findViewById(R.id.usernameText);
         emailText = view.findViewById(R.id.emailText);
 
