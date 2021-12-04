@@ -17,16 +17,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar =  findViewById(R.id.toolbar);
-        toolbar.setTitle("Tasks");
         setSupportActionBar(toolbar);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new ListFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,new ListFragment()).commit();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationBar);
-        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.list:
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
+                return true;
             }
         });
     }
