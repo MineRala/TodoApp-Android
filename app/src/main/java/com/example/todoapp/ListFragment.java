@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -73,10 +75,10 @@ public class ListFragment extends Fragment {
     }
 
     private void goToAddItemPage() {
-        Fragment fragment = null;
-        fragment = new AddFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer,new AddFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
     }
 }
