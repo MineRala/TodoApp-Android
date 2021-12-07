@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
         inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
-        alreadyHaveAnAccountButton = findViewById(R.id.textViewalreadyHaveAccount);
+        alreadyHaveAnAccountButton = findViewById(R.id.textViewAlreadyHaveAccount);
         registerButton = findViewById(R.id.buttonRegister);
         auth = FirebaseAuth.getInstance();
         loadingBar = new ProgressDialog(RegisterActivity.this);

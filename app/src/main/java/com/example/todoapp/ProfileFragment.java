@@ -49,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
     private FirebaseAuth auth;
     ImageView imageView;
-    //Button button;
+    // Button button;
     //private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
     TextView usernameText, emailText;
     String username, email;
