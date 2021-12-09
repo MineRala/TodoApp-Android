@@ -45,7 +45,7 @@ public class ListFragment extends Fragment {
 
         final MenuItem search = menu.findItem(R.id.search);
         final SearchView searchView = (SearchView) search.getActionView();
-        searchView.setQueryHint("Search here");
+        searchView.setQueryHint(getResources().getString(R.string.search_here));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

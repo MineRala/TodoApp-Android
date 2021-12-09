@@ -27,6 +27,11 @@
     <string name="username_not_valid">Your username is not valid! Username must be 8 character.</string>
     <string name="password_not_match">Password not match!</string>
     <string name="registration">Registration</string>
+    <string name="are_you_sure_logout">Are you sure you want to log out?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="search_here">Search here</string>
+
 
 
 

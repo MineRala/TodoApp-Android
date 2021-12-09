@@ -138,10 +138,10 @@ public class ProfileFragment extends Fragment {
 
     private void logout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Logout");
-        builder.setMessage("Are you sure you want to log out?");
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(getResources().getString(R.string.logout));
+        builder.setMessage(getResources().getString(R.string.are_you_sure_logout));
+        builder.setNegativeButton(getResources().getString(R.string.no), null);
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 auth.signOut();

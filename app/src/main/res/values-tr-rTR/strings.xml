@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">"Yapılacaklar "</string>
     <string name="register">Kayıt Ol</string>
-    <string name="already_have_an_account">Zaten hesabınız var mı</string>
+    <string name="already_have_an_account">Zaten hesabınız var mı?</string>
     <string name="login">Giriş Yap</string>
     <string name="forgot_password">"Parolanızı unuttunuz mu? "</string>
     <string name="do_not_have_an_account">Bir hesabınız yok mu?</string>
@@ -28,5 +28,9 @@
     <string name="username_not_valid">Kullanıcı adınız geçerli değil! Kullanıcı adı 8 karakter olmalıdır.</string>
     <string name="password_not_match">Şifre eşleşmiyor!</string>
     <string name="registration">Kayıt</string>
+    <string name="are_you_sure_logout">Çıkış yapmak istediğinizden emin misiniz?</string>
+    <string name="no">Hayır</string>
+    <string name="yes">Evet</string>
+    <string name="search_here">Burada Ara</string>
 
 </resources>
