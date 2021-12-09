@@ -19,7 +19,7 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Add");
+        getActivity().setTitle(R.string.add);
         MainActivity.getInstance().bottomNavigationView.setVisibility(View.GONE);
         return inflater.inflate(R.layout.fragment_add, container, false);
     }

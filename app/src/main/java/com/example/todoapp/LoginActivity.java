@@ -71,13 +71,13 @@ public class LoginActivity extends AppCompatActivity {
         String password = inputPassword.getText().toString();
 
         if (email.isEmpty() || !email.contains("@")) {
-            showError(inputEmail, "Email is not valid! Email must contains '@'.");
+            showError(inputEmail, getResources().getString(R.string.email_not_valid));
         } else if (password.isEmpty() || password.length() < 8) {
-            showError(inputPassword, "Password is not valid! Password must be 8 character.");
+            showError(inputPassword, getResources().getString(R.string.password_not_valid));
         }
         else {
-           loadingBar.setTitle("Login");
-           loadingBar.setMessage("Please wait, while check your credentials");
+           loadingBar.setTitle(R.string.login);
+           loadingBar.setMessage(getResources().getString(R.string.check_credentials));
            loadingBar.setCanceledOnTouchOutside(false);
            loadingBar.show();
 

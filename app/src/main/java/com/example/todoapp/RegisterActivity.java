@@ -59,17 +59,17 @@ public class RegisterActivity extends AppCompatActivity {
         String passwordConfirm = inputConfirmPassword.getText().toString();
 
         if (username.isEmpty() || username.length() < 8) {
-            showError(inputUsername, "Your username is not valid! Username must be 8 character.");
+            showError(inputUsername, getResources().getString(R.string.username_not_valid));
         } else if (email.isEmpty() || !email.contains("@")) {
-            showError(inputEmail, "Email is not valid! Email must contains '@'.");
+            showError(inputEmail, getResources().getString(R.string.email_not_valid));
         } else if (password.isEmpty() || password.length() < 8) {
-            showError(inputPassword, "Password is not valid! Password must be 8 character.");
+            showError(inputPassword, getResources().getString(R.string.password_not_valid));
         } else if (passwordConfirm.isEmpty() || !passwordConfirm.equals(password)) {
-            showError(inputConfirmPassword,"Password not match!");
+            showError(inputConfirmPassword,getResources().getString(R.string.password_not_match));
         }
         else {
-            loadingBar.setTitle("Registration");
-            loadingBar.setMessage("Please wait, while check your credentials.");
+            loadingBar.setTitle(getResources().getString(R.string.registration));
+            loadingBar.setMessage(getResources().getString(R.string.check_credentials));
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 

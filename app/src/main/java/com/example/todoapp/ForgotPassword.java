@@ -55,11 +55,11 @@ public class ForgotPassword extends AppCompatActivity {
         String email = inputEmail.getText().toString();
 
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showError(inputEmail, "Email is not valid! Email must contains '@'.");
+            showError(inputEmail, getResources().getString(R.string.email_not_valid));
         }
         else {
-            loadingBar.setTitle("Reset Password");
-            loadingBar.setMessage("Please wait, while check your credentials");
+            loadingBar.setTitle(getResources().getString(R.string.reset_password));
+            loadingBar.setMessage(getResources().getString(R.string.check_credentials));
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
@@ -68,9 +68,9 @@ public class ForgotPassword extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {
                         loadingBar.dismiss();
-                        Toast.makeText(ForgotPassword.this,"Check your email to reset your password",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPassword.this,getResources().getString(R.string.check_email),Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ForgotPassword.this,"Try again! Something wrong happened!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPassword.this,getResources().getString(R.string.try_again),Toast.LENGTH_SHORT).show();
                     }
                 }
             });

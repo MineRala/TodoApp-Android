@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Yapılacaklar "</string>
+    <string name="register">Kayıt Ol</string>
+    <string name="already_have_an_account">Zaten hesabınız var mı</string>
+    <string name="login">Giriş Yap</string>
+    <string name="forgot_password">"Parolanızı unuttunuz mu? "</string>
+    <string name="do_not_have_an_account">Bir hesabınız yok mu?</string>
+    <string name="sign_up">Üye Ol</string>
+    <string name="password">Şifre</string>
+    <string name="email">Mail</string>
+    <string name="username">Kullanıcı adı</string>
+    <string name="confirm_password">Şifre Doğrulama</string>
+    <string name="send_reset_link">Sıfırlama Bağlantısı Gönder</string>
+    <string name="back_to_login">Giriş\'e geri dön</string>
+    <string name="add">Ekle</string>
+    <string name="search">Ara</string>
+    <string name="list">Liste</string>
+    <string name="profile">Profil</string>
+    <string name="logout">Çıkış</string>
+    <string name="tasks">Görevler</string>
+    <string name="email_not_valid">E-posta geçerli değil! E-posta "@" içermelidir.</string>
+    <string name="password_not_valid">Şifre geçerli değil! Şifre 8 karakter olmalıdır.</string>
+    <string name="check_credentials">Lütfen bekleyin, kimlik bilgileriniz kontrol ediliyor.</string>
+    <string name="reset_password">Şifreyi Sıfırla</string>
+    <string name="check_email">Şifrenizi sıfırlamak için e-postanızı kontrol edin</string>
+    <string name="try_again">Bir daha deneyin! Yanlış bir şey oldu!</string>
+    <string name="username_not_valid">Kullanıcı adınız geçerli değil! Kullanıcı adı 8 karakter olmalıdır.</string>
+    <string name="password_not_match">Şifre eşleşmiyor!</string>
+    <string name="registration">Kayıt</string>
+
+</resources>
