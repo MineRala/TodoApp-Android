@@ -1,20 +1,31 @@
 package com.example.todoapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView bottomNavigationView;
     private ViewPager viewPager;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView navigationView;
     public static MainActivity instance;
 
     @Override
@@ -30,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigationBar);
         viewPager = findViewById(R.id.viewpager);
+        drawerLayout = findViewById(R.id.my_drawer);
+        navigationView = findViewById(R.id.nav_view);
         setUpViewPager();
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,6 +64,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        toggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.nav_open_drawer,
+                R.string.nav_close_drawer);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void setUpViewPager() {
@@ -90,5 +115,30 @@ public class MainActivity extends AppCompatActivity {
 
     public static MainActivity getInstance() {
         return instance;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        Intent intent = null;
+
+        switch(id) {
+            case R.id.nav_home:
+                new ListFragment();
+                break;
+            case R.id.nav_add:
+                intent = new Intent(this, AddActivity.class);
+                break;
+            case R.id.nav_about:
+                intent = new Intent(this, AddActivity.class);
+                break;
+        }
+            if (intent != null) {
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.my_drawer);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

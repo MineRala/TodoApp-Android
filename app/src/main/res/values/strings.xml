@@ -31,6 +31,8 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="search_here">Search here</string>
+    <string name="nav_open_drawer">open</string>
+    <string name="nav_close_drawer">close</string>
 
 
 </resources>
