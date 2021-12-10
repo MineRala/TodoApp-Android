@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView bottomNavigationView;
@@ -27,11 +30,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     public static MainActivity instance;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        auth = FirebaseAuth.getInstance();
 
         instance = this;
         Toolbar toolbar =  findViewById(R.id.toolbar);
@@ -121,17 +126,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         Intent intent = null;
-
         switch(id) {
             case R.id.nav_home:
                 new ListFragment();
                 break;
-            case R.id.nav_add:
-                intent = new Intent(this, AddActivity.class);
-                break;
             case R.id.nav_about:
-                intent = new Intent(this, AddActivity.class);
+                intent = new Intent(this, AboutActivity.class);
                 break;
+            case R.id.nav_privacy_policy:
+                intent = new Intent(this, PrivacyPolicyActivity.class);
+                break;
+            case R.id.nav_logout:
+                logout();
+                break;
+
         }
             if (intent != null) {
             startActivity(intent);
@@ -140,5 +148,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.my_drawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.logout));
+        builder.setMessage(getResources().getString(R.string.are_you_sure_logout));
+        builder.setNegativeButton(getResources().getString(R.string.no), null);
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                auth.signOut();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        builder.show();
     }
 }

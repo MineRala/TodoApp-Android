@@ -5,20 +5,26 @@
         >
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_list"
+            android:icon="@drawable/ic_baseline_home"
             android:title="Home"
             android:checked="true"
             />
         <item
-            android:id="@+id/nav_add"
-            android:icon="@drawable/ic_baseline_add"
-            android:title="Add"
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_baseline_about"
+            android:title="About"
             android:checked="true"
             />
         <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_baseline_person"
-            android:title="About"
+            android:id="@+id/nav_privacy_policy"
+            android:icon="@drawable/ic_baseline_privacy"
+            android:title="Privacy Policy"
+            android:checked="true"
+            />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_baseline_logout_nav"
+            android:title="Logout"
             android:checked="true"
             />
     </group>

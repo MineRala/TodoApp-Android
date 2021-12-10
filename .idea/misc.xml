@@ -5,19 +5,24 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/drawable/ic_baseline_about.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_add.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/drawable/ic_baseline_home.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_list.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/ic_baseline_person.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/drawable/ic_baseline_privacy.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_search.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/drawable/ic_baseline_security.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/ic_google.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/input_bg.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/activity_about.xml" value="0.16304347826086957" />
         <entry key="app/src/main/res/layout/activity_add.xml" value="0.17346014492753623" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.23007246376811594" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14402173913043478" />
+        <entry key="app/src/main/res/layout/activity_privacy_policy.xml" value="0.12916666666666668" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.20652173913043478" />

@@ -32,5 +32,9 @@
     <string name="no">Hayır</string>
     <string name="yes">Evet</string>
     <string name="search_here">Burada Ara</string>
+    <string name="nav_open_drawer">aç</string>
+    <string name="nav_close_drawer">kapa</string>
+    <string name="about">Hakkında</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
 
 </resources>
