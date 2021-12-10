@@ -33,7 +33,6 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getActivity().setTitle(R.string.tasks);
         MainActivity.getInstance().bottomNavigationView.setVisibility(View.VISIBLE);
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
