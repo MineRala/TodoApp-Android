@@ -17,7 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class ListFragment extends Fragment {
+    FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,20 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
         MainActivity.getInstance().bottomNavigationView.setVisibility(View.VISIBLE);
-        return inflater.inflate(R.layout.fragment_list, container, false);
+        fab = view.findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),AddActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
+
     }
 
     @Override
@@ -67,17 +82,7 @@ public class ListFragment extends Fragment {
         if (id == R.id.search) {
             return false;
         }
-        if (id == R.id.add) {
-            goToAddItemPage();
-        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToAddItemPage() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer,new AddFragment());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
 }

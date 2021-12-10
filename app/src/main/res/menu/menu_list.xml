@@ -8,10 +8,4 @@
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
-    <item
-        android:id="@+id/add"
-        android:icon="@drawable/ic_baseline_add"
-        android:title= "@string/add"
-        app:showAsAction="always"
-        />
 </menu>

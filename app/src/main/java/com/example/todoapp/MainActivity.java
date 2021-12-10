@@ -25,9 +25,8 @@ public class MainActivity extends AppCompatActivity {
         instance = this;
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.tasks);
-        }
+        getSupportActionBar().setTitle(R.string.tasks);
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigationBar);
         viewPager = findViewById(R.id.viewpager);
