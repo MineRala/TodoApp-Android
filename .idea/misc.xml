@@ -22,7 +22,7 @@
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.23007246376811594" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14402173913043478" />
-        <entry key="app/src/main/res/layout/activity_privacy_policy.xml" value="0.12916666666666668" />
+        <entry key="app/src/main/res/layout/activity_privacy_policy.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.20652173913043478" />
