@@ -36,4 +36,6 @@
     <string name="nav_close_drawer">close</string>
     <string name="about">About</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="about_text">Todo application is a data-based task management application. It allows users to manage their tasks from a smartphone or tablet.You have features such as adding, updating, deleting and marking as done to your list.Keeping track of your tasks all day is easy with Todo\'s mobile app.It helps you easily share to-dos with your friends, family and colleagues.With the Todo application, you can easily manage and access your tasks.</string>
+
 </resources>

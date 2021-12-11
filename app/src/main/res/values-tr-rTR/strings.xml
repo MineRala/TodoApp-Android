@@ -36,5 +36,7 @@
     <string name="nav_close_drawer">kapa</string>
     <string name="about">Hakkında</string>
     <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="about_text">Todo uygulaması, veri tabanlı bir görev yönetimi uygulamasıdır. Kullanıcıların görevlerini bir akıllı telefon veya tabletten yönetmelerine olanak tanır.Listenize ekleme, güncelleme, silme ve yapıldı olarak işaretleme gibi özelliklere sahipsiniz.Todo\'nun mobil uygulamasıyla tüm gün görevlerinizi takip etmek çok kolay.Yapılacakları arkadaşlarınız, aileniz ve iş arkadaşlarınızla kolayca paylaşmanıza yardımcı olur.Todo uygulaması ile görevlerinizi kolayca yönetebilir ve bunlara erişebilirsiniz.</string>
+
 
 </resources>
