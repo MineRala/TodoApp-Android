@@ -32,6 +32,7 @@
     <string name="no">Hayır</string>
     <string name="yes">Evet</string>
     <string name="search_here">Burada Ara</string>
+    <string name="take_photo">Fotoğraf Çek</string>
     <string name="nav_open_drawer">aç</string>
     <string name="nav_close_drawer">kapa</string>
     <string name="home">Anasayfa</string>

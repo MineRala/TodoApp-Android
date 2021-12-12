@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private FirebaseAuth auth;
     private ProgressDialog loadingBar;
+    private static final String SHARED_PREF_NAME = "username";
+    private static final String KEY_NAME = "key_username";
+    String username,email,password,passwordConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkCredentials();
+                saveName();
             }
         });
         alreadyHaveAnAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -53,10 +58,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void checkCredentials() {
-        String username = inputUsername.getText().toString();
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String passwordConfirm = inputConfirmPassword.getText().toString();
+         username = inputUsername.getText().toString();
+         email = inputEmail.getText().toString();
+         password = inputPassword.getText().toString();
+         passwordConfirm = inputConfirmPassword.getText().toString();
 
         if (username.isEmpty() || username.length() < 8) {
             showError(inputUsername, getResources().getString(R.string.username_not_valid));
@@ -94,4 +99,13 @@ public class RegisterActivity extends AppCompatActivity {
         text.setError(s);
         text.requestFocus();
     }
+
+    private void saveName() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_NAME,inputUsername.getText().toString());
+        editor.apply();
+    }
+
+
 }

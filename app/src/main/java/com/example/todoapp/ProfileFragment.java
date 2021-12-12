@@ -3,23 +3,38 @@ package com.example.todoapp;
 import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationRequest;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.text.Html;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,8 +47,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -42,18 +70,31 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.Executor;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
     private FirebaseAuth auth;
     ImageView imageView;
-    // Button button;
-    //private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
-    TextView usernameText, emailText;
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
+    TextView usernameText, emailText, locationText;
+    Button photoButton,locationButton;
     String username, email;
+    private static final String SHARED_PREF_NAME = "username";
+    private static final String KEY_NAME = "key_username";
+    FusedLocationProviderClient client;
 
+    private static final int FILE_SELECT_REQUEST_CODE_1 = 1001;
+
+    private static final int GALLERY_PERMISSION_REQUEST_CODE = 154;
+
+
+    static ProfileFragment instance;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +110,8 @@ public class ProfileFragment extends Fragment {
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,15 +119,19 @@ public class ProfileFragment extends Fragment {
         MainActivity.getInstance().bottomNavigationView.setVisibility(View.VISIBLE);
         usernameText = view.findViewById(R.id.usernameText);
         emailText = view.findViewById(R.id.emailText);
-
-        usernameText.setText(username);
         emailText.setText(email);
+        displayName();
 
-       /*
-        button = (Button) view.findViewById(R.id.button);
+
+
+        instance = this;
+
+
+        client = LocationServices.getFusedLocationProviderClient(getActivity());
+        photoButton = (Button) view.findViewById(R.id.photoButton);
         imageView = (ImageView) view.findViewById(R.id.profileImage);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -94,32 +141,110 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-        */
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= 23) {
+
+                    if (checkRequestedGalleryPermission(GALLERY_PERMISSION_REQUEST_CODE)) {
+                        openGallery(FILE_SELECT_REQUEST_CODE_1);
+                    } else {
+                        requestGalleryPermissionFromUser(GALLERY_PERMISSION_REQUEST_CODE);
+                    }
+                } else {
+                    openGallery(FILE_SELECT_REQUEST_CODE_1);
+                }
+            }
+        });
         return view;
     }
-    /*
+
+    private void displayName() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        username = sharedPreferences.getString(KEY_NAME,null);
+        System.out.println(username);
+        if (username != null){
+            usernameText.setText(username);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void requestGalleryPermissionFromUser(int permission) {
+        switch (permission) {
+            case GALLERY_PERMISSION_REQUEST_CODE:
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.CAMERA)) {
+                    Toast.makeText(getActivity(), "Galeri için izin vermelisiniz", Toast.LENGTH_LONG).show();
+                        getActivity().requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION_REQUEST_CODE);
+                } else {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION_REQUEST_CODE);
+                }
+                break;
+        }
+    }
+
+    public void openGallery(int requestCode) {
+        Intent i = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        try {
+            MainActivity.getInstance().startActivityForResult(i, requestCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkRequestedGalleryPermission(int permission) {
+        boolean result = false;
+        switch (permission) {
+            case GALLERY_PERMISSION_REQUEST_CODE:
+                int request_status = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                if (request_status == PackageManager.PERMISSION_GRANTED) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+                break;
+        }
+        return result;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-
                 Bitmap bmp = (Bitmap) data.getExtras().get("data");
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
-
-                // convert byte array to Bitmap
-
                 Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
                         byteArray.length);
-
                 imageView.setImageBitmap(bitmap);
+            }
+        }
 
+        if(requestCode == FILE_SELECT_REQUEST_CODE_1 && resultCode == getActivity().RESULT_OK){
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            try {
+                cursor.moveToFirst();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String filePath = cursor.getString(columnIndex);
+                cursor.close();
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 15;
+                Bitmap bitmap1;
+                bitmap1 = BitmapFactory.decodeFile(filePath, options);
+                imageView.setImageBitmap(bitmap1);
+            } catch (Exception e) {
             }
         }
     }
-    */
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -157,6 +282,10 @@ public class ProfileFragment extends Fragment {
         FirebaseUser user = auth.getCurrentUser();
         username = user.getDisplayName();
         email = user.getEmail();
+    }
+
+    public static ProfileFragment getInstance(){
+        return instance;
     }
 
 
