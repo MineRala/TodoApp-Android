@@ -82,18 +82,13 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth auth;
     ImageView imageView;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
-    TextView usernameText, emailText, locationText;
-    Button photoButton,locationButton;
+    TextView usernameText, emailText;
+    Button photoButtonCamera,photoButtonGallery;
     String username, email;
     private static final String SHARED_PREF_NAME = "username";
     private static final String KEY_NAME = "key_username";
-    FusedLocationProviderClient client;
-
     private static final int FILE_SELECT_REQUEST_CODE_1 = 1001;
-
     private static final int GALLERY_PERMISSION_REQUEST_CODE = 154;
-
-
     static ProfileFragment instance;
 
     @Override
@@ -110,8 +105,6 @@ public class ProfileFragment extends Fragment {
 
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,17 +114,12 @@ public class ProfileFragment extends Fragment {
         emailText = view.findViewById(R.id.emailText);
         emailText.setText(email);
         displayName();
-
-
-
         instance = this;
-
-
-        client = LocationServices.getFusedLocationProviderClient(getActivity());
-        photoButton = (Button) view.findViewById(R.id.photoButton);
+        photoButtonCamera = (Button) view.findViewById(R.id.photoButtonCamera);
+        photoButtonGallery= (Button) view.findViewById(R.id.photoButtonGallery);
         imageView = (ImageView) view.findViewById(R.id.profileImage);
 
-        photoButton.setOnClickListener(new View.OnClickListener() {
+        photoButtonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -142,7 +130,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        photoButtonGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 23) {
