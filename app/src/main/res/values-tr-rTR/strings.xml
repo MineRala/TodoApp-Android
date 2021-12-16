@@ -96,5 +96,9 @@ Bizimle iletişime geçin
 
 Gizlilik Politikam hakkında herhangi bir sorunuz veya öneriniz varsa, benimle todo@gmail.com adresinden iletişime geçmekten çekinmeyin.</string>
     <string name="select_photo">Fotoğraf Seç</string>
+    <string name="task_title">Görev Başlığı</string>
+    <string name="task_description">Görev Açıklaması</string>
+    <string name="task_category">Görev Kategorisi</string>
+    <string name="new_task">Yeni Görev</string>
 
 </resources>

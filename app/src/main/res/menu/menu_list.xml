@@ -8,4 +8,9 @@
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
+    <item
+        android:id="@+id/deleteAll"
+        android:title="Delete All"
+        app:showAsAction="never"/>
+
 </menu>

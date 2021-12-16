@@ -95,5 +95,9 @@ Contact Us
 
 If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at todo@gmail.com.</string>
     <string name="select_photo">Select Photo</string>
+    <string name="task_title">Task Title</string>
+    <string name="task_description">Task Description</string>
+    <string name="task_category">Task Category</string>
+    <string name="new_task">New Task</string>
 
 </resources>

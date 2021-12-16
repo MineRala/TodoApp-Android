@@ -18,7 +18,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/input_bg.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.16304347826086957" />
-        <entry key="app/src/main/res/layout/activity_add.xml" value="0.17346014492753623" />
+        <entry key="app/src/main/res/layout/activity_add.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.23007246376811594" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
@@ -30,6 +30,8 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.22282608695652173" />
         <entry key="app/src/main/res/layout/fragment_update.xml" value="0.125" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.17346014492753623" />
+        <entry key="app/src/main/res/layout/task.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/task_layout.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.22644927536231885" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/menu/menu_bottombar.xml" value="0.2453125" />
