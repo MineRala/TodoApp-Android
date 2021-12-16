@@ -79,7 +79,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:lines="5"
+        android:lines="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
