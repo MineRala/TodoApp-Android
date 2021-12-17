@@ -33,7 +33,6 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_notification, container, false);
-        NotificationActivity.getInstance().button.setVisibility(View.GONE);
         saveButton = view.findViewById(R.id.saveButton);
         cancelButton = view.findViewById(R.id.cancelButton);
         name = view.findViewById(R.id.editName);

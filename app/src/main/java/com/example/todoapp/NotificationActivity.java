@@ -23,22 +23,32 @@ public class NotificationActivity extends AppCompatActivity {
         instance = this;
 
         button = findViewById(R.id.addNotfication);
-        button.setVisibility(View.VISIBLE);
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                button.setVisibility(View.GONE);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 NotificationFragment myFragment = new NotificationFragment();
                 transaction.replace(R.id.fragmentContainerNotification, myFragment, "NotificationFragment");
-                button.setVisibility(View.VISIBLE);
                 transaction.addToBackStack(null);
                 transaction.commit();
 
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+            button.setVisibility(View.VISIBLE);
+        } else
+            super.onBackPressed();
     }
 
     public static NotificationActivity getInstance() { return instance; }
