@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.tasks);
 
-
         bottomNavigationView = findViewById(R.id.bottomNavigationBar);
         viewPager = findViewById(R.id.viewpager);
         drawerLayout = findViewById(R.id.my_drawer);
@@ -100,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     private void setUpViewPager() {
@@ -110,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -133,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
@@ -155,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_privacy_policy:
                 intent = new Intent(this, PrivacyPolicyActivity.class);
+                break;
+            case R.id.notification:
+                intent = new Intent(this, NotificationActivity.class);
                 break;
             case R.id.nav_logout:
                 logout();

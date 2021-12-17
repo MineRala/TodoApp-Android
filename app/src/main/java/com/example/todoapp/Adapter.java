@@ -2,13 +2,17 @@ package com.example.todoapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -16,10 +20,12 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     List<Model> tasksList;
+    ItemClickListener itemClickListener;
 
-    public Adapter(Context context, List<Model> tasksList) {
+    public Adapter(Context context, List<Model> tasksList,ItemClickListener itemClickListener) {
         this.context = context;
         this.tasksList = tasksList;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -34,12 +40,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.title.setText(tasksList.get(position).getTitle());
         holder.description.setText(tasksList.get(position).getDesc());
         holder.category.setText(tasksList.get(position).getCategory());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onItemClick(tasksList.get(position));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return tasksList.size();
     }
+
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -52,5 +67,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             description.setVisibility(View.INVISIBLE);
             category = itemView.findViewById(R.id.taskCategory);
         }
+    }
+
+    public interface ItemClickListener {
+        public void onItemClick(Model model);
     }
 }

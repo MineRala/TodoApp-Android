@@ -100,5 +100,7 @@ Gizlilik Politikam hakkında herhangi bir sorunuz veya öneriniz varsa, benimle 
     <string name="task_description">Görev Açıklaması</string>
     <string name="task_category">Görev Kategorisi</string>
     <string name="new_task">Yeni Görev</string>
+    <string name="update">Güncelle</string>
+    <string name="update_task">Görev Güncelle</string>
 
 </resources>
