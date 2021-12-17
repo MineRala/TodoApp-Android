@@ -125,12 +125,6 @@ public class ListFragment extends Fragment implements Adapter.ItemClickListener{
 
     @Override
     public void onItemClick(Model model) {
-        Fragment fragment = DetailFragment.newInstance(model.getTitle(),model.getDesc(),model.getCategory());
-        FragmentTransaction fragmentTransaction  = getActivity().getSupportFragmentManager().beginTransaction();
-      //  fragmentTransaction.replace(R.id.fragmentContainer,fragment,"detail_fragment");
-        fragmentTransaction.hide(getActivity().getSupportFragmentManager().findFragmentById(ListFragment.super.getId()));
-        fragmentTransaction.add(R.id.fragmentContainer, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+
     }
 }

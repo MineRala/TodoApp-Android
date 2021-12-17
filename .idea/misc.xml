@@ -17,8 +17,10 @@
         <entry key="app/src/main/res/drawable/ic_google.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/input_bg.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/drawable/shadow.xml" value="0.1175925925925926" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.16304347826086957" />
         <entry key="app/src/main/res/layout/activity_add.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.2164855072463768" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.23007246376811594" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />

@@ -1,6 +1,8 @@
 package com.example.todoapp;
 
-public class Model {
+import java.io.Serializable;
+
+public class Model implements Serializable {
     private String id,title, description, category;
 
     public Model(String id, String title, String description, String category) {

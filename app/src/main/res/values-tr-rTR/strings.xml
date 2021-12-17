@@ -102,5 +102,6 @@ Gizlilik Politikam hakkında herhangi bir sorunuz veya öneriniz varsa, benimle 
     <string name="new_task">Yeni Görev</string>
     <string name="update">Güncelle</string>
     <string name="update_task">Görev Güncelle</string>
+    <string name="task_detail">Görev Detayı</string>
 
 </resources>

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +45,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListener.onItemClick(tasksList.get(position));
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("detail", tasksList.get(position));
+              //  intent.putExtra("description", tasksList.get(position).getDesc());
+               // intent.putExtra("category", tasksList.get(position).getCategory());
+                context.startActivity(intent);
             }
         });
     }
@@ -59,6 +64,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, description, category;
+        ConstraintLayout constraintLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

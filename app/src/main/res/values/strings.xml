@@ -103,5 +103,6 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="update_task">Update Task</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="task_detail">Task Detail</string>
 
 </resources>

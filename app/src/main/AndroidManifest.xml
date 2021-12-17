@@ -15,8 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
         <activity
+            android:name=".DetailActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".NotificationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UpdateActivity"
             android:exported="false" />
@@ -50,7 +55,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".AlarmReceiver"/>
+
+        <receiver android:name=".AlarmReceiver" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

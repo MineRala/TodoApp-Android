@@ -101,4 +101,5 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="task_category">Task Category</string>
     <string name="new_task">New Task</string>
     <string name="update">Update</string>
+    <string name="task_detail">Task Detail</string>
 </resources>

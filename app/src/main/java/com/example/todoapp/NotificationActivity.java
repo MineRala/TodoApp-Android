@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class NotificationActivity extends AppCompatActivity {
     public Button button;
-    public static NotificationActivity instance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,11 +20,7 @@ public class NotificationActivity extends AppCompatActivity {
         setTitle("Notification");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        instance = this;
-
         button = findViewById(R.id.addNotfication);
-
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +46,4 @@ public class NotificationActivity extends AppCompatActivity {
         } else
             super.onBackPressed();
     }
-
-    public static NotificationActivity getInstance() { return instance; }
 }
