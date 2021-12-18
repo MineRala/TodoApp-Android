@@ -41,7 +41,7 @@ public class AddActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(AddActivity.this,"Both Fields Required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddActivity.this,getResources().getString(R.string.all_fields), Toast.LENGTH_SHORT).show();
                 }
             }
         });

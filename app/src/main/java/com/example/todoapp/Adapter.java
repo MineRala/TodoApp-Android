@@ -21,12 +21,10 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     List<Model> tasksList;
-    ItemClickListener itemClickListener;
 
-    public Adapter(Context context, List<Model> tasksList,ItemClickListener itemClickListener) {
+    public Adapter(Context context, List<Model> tasksList) {
         this.context = context;
         this.tasksList = tasksList;
-        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -47,8 +45,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("detail", tasksList.get(position));
-              //  intent.putExtra("description", tasksList.get(position).getDesc());
-               // intent.putExtra("category", tasksList.get(position).getCategory());
                 context.startActivity(intent);
             }
         });
@@ -60,11 +56,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, description, category;
-        ConstraintLayout constraintLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,9 +67,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             description.setVisibility(View.INVISIBLE);
             category = itemView.findViewById(R.id.taskCategory);
         }
-    }
-
-    public interface ItemClickListener {
-        public void onItemClick(Model model);
     }
 }

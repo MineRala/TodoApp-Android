@@ -19,6 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         int notificationId = intent.getIntExtra("notificationId",0);
         String message = intent.getStringExtra("message");
+        String title = intent.getStringExtra("title");
         contextAlarm = context;
 
         Intent mainIntent = new Intent(context,NotificationFragment.class);
@@ -34,7 +35,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
-                .setContentTitle("It's time!")
+                .setContentTitle(title)
                 .setContentText(message)
                 .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

@@ -24,6 +24,7 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
     TextView cancelButton, saveButton;
     EditText name;
     TimePicker timePicker;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
         Intent intent = new Intent(getActivity(), AlarmReceiver.class);
         intent.putExtra("notificationId", notificationId);
         intent.putExtra("message",name.getText().toString());
+        intent.putExtra("title", getResources().getString(R.string.it_is_time));
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(
                 getActivity(),0,intent,PendingIntent.FLAG_CANCEL_CURRENT
@@ -66,7 +68,7 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
                 startTime.set(Calendar.SECOND,0);
                 long alarmStartTime = startTime.getTimeInMillis();
                 alarmManager.set(AlarmManager.RTC_WAKEUP,alarmStartTime,alarmIntent);
-                Toast.makeText(getActivity(), "Done!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.done, Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.cancelButton:

@@ -17,10 +17,10 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Notification");
+        setTitle(R.string.notification);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        button = findViewById(R.id.addNotfication);
+        button = findViewById(R.id.addNotification);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,7 +28,7 @@ public class NotificationActivity extends AppCompatActivity {
                 button.setVisibility(View.GONE);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 NotificationFragment myFragment = new NotificationFragment();
-                transaction.replace(R.id.fragmentContainerNotification, myFragment, "NotificationFragment");
+                transaction.replace(R.id.fragmentContainerNotification, myFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
 

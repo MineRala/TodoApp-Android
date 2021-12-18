@@ -26,7 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListFragment extends Fragment implements Adapter.ItemClickListener{
+public class ListFragment extends Fragment{
     RecyclerView recyclerView;
     FloatingActionButton fab;
     Adapter adapter;
@@ -55,7 +55,7 @@ public class ListFragment extends Fragment implements Adapter.ItemClickListener{
         tasksList = new ArrayList<>();
         database = new Database(getContext());
         fetchAllTasksFromDatabase();
-        adapter = new Adapter(getContext(),tasksList,this);
+        adapter = new Adapter(getContext(),tasksList);
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -121,10 +121,5 @@ public class ListFragment extends Fragment implements Adapter.ItemClickListener{
             deleteAllTasks();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onItemClick(Model model) {
-
     }
 }
