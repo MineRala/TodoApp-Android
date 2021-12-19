@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.todoapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,16 +17,21 @@
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
         <activity
-            android:name=".DetailActivity"
+            android:name=".LocationActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".NotificationActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UpdateActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".DetailActivity" />
         <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
@@ -58,6 +65,7 @@
 
         <receiver android:name=".AlarmReceiver" />
 
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.todoapp.fileprovider"
@@ -85,6 +93,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <service android:name=".GPS_Service"/>
     </application>
 
 </manifest>

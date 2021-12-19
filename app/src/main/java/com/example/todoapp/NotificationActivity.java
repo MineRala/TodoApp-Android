@@ -31,7 +31,6 @@ public class NotificationActivity extends AppCompatActivity {
                 transaction.replace(R.id.fragmentContainerNotification, myFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
             }
         });
 

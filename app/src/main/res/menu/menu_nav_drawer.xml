@@ -28,6 +28,12 @@
             android:checked="true"
             />
         <item
+            android:id="@+id/location"
+            android:icon="@drawable/ic_baseline_location_on"
+            android:title="@string/location"
+            android:checked="true"
+            />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_baseline_logout_nav"
             android:title="@string/logout"

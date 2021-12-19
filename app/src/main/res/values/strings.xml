@@ -109,7 +109,13 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="add_notification">Add Notification</string>
     <string name="share">Share</string>
     <string name="edit">Edit</string>
-
+    <string name="location">Location</string>
+    <string name="location_stop">The location process has been stopped.</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="start_service">Start Service</string>
+    <string name="stop_service">Stop Service</string>
 
 
 </resources>

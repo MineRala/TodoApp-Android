@@ -155,6 +155,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.notification:
                 intent = new Intent(this, NotificationActivity.class);
                 break;
+            case R.id.location:
+                intent = new Intent(this, LocationActivity.class);
+                break;
             case R.id.nav_logout:
                 logout();
                 break;

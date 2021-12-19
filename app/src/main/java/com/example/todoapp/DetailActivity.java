@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +30,8 @@ public class DetailActivity extends AppCompatActivity {
             model = (Model) object;
         }
 
+        onRestart();
+
         titleText = findViewById(R.id.titleTextView);
         descriptionText = findViewById(R.id.descriptionTextView);
         categoryText = findViewById(R.id.categoryTextView);
@@ -39,6 +42,8 @@ public class DetailActivity extends AppCompatActivity {
             categoryText.setText(model.getCategory());
         }
     }
+
+
 
 
     @Override
@@ -52,13 +57,25 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.share) {
-            Toast.makeText(this,"Share tapped",Toast.LENGTH_SHORT).show();
+            shareTask();
             return false;
         }
         if (id == R.id.edit) {
-            Toast.makeText(this,"Edit tapped",Toast.LENGTH_SHORT).show();
-          return false;
+            Intent intent = new Intent(this,UpdateActivity.class);
+            startActivity(intent);
+            return false;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void shareTask() {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT,titleText.getText().toString() + " - " + categoryText.getText().toString());
+        shareIntent.putExtra(Intent.EXTRA_TEXT,descriptionText.getText().toString());
+        shareIntent.setType("text/plain");
+        shareIntent = Intent.createChooser(shareIntent,"Share via: ");
+        startActivity(shareIntent);
     }
 }
