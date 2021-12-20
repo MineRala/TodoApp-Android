@@ -95,6 +95,9 @@
         </provider>
 
         <service android:name=".GPS_Service"/>
+        <service android:name=".MyLocalBoundService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

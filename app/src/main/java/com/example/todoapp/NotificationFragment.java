@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import java.util.Calendar;
 
 public class NotificationFragment extends Fragment implements View.OnClickListener{
     public int notificationId = 1;
-    TextView cancelButton, saveButton;
+    TextView cancelButton, saveButton, getTimeButton;
     EditText name;
     TimePicker timePicker;
 
@@ -40,6 +41,18 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
         timePicker = view.findViewById(R.id.timePicker);
         cancelButton.setOnClickListener((View.OnClickListener) this);
         saveButton.setOnClickListener((View.OnClickListener) this);
+        getTimeButton = view.findViewById(R.id.buttonGetTime);
+
+        getTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                TimeFragment myFragment = new TimeFragment();
+                transaction.replace(R.id.fragmentContainerTime, myFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         return view;
     }
 
