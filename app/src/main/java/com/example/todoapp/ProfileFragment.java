@@ -76,7 +76,6 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         auth = FirebaseAuth.getInstance();
-        loadUserInfo();
         super.onCreate(savedInstanceState);
     }
 
@@ -93,8 +92,7 @@ public class ProfileFragment extends Fragment {
         MainActivity.getInstance().bottomNavigationView.setVisibility(View.VISIBLE);
         usernameText = view.findViewById(R.id.usernameText);
         emailText = view.findViewById(R.id.emailText);
-        emailText.setText(email);
-        displayName();
+        displayEmailAndName();
         instance = this;
         photoButtonCamera = (Button) view.findViewById(R.id.photoButtonCamera);
         photoButtonGallery= (Button) view.findViewById(R.id.photoButtonGallery);
@@ -129,13 +127,16 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void displayName() {
+    private void displayEmailAndName() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         username = sharedPreferences.getString(KEY_NAME,null);
         System.out.println(username);
         if (username != null){
             usernameText.setText(username);
         }
+        FirebaseUser user = auth.getCurrentUser();
+        email = user.getEmail();
+        emailText.setText(email);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -247,11 +248,6 @@ public class ProfileFragment extends Fragment {
         builder.show();
     }
 
-    private void loadUserInfo() {
-        FirebaseUser user = auth.getCurrentUser();
-        username = user.getDisplayName();
-        email = user.getEmail();
-    }
 
     public static ProfileFragment getInstance(){
         return instance;
