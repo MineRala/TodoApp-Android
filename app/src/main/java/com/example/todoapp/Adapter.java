@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -36,18 +37,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.title.setText(tasksList.get(position).getTitle());
-        holder.description.setText(tasksList.get(position).getDesc());
-        holder.category.setText(tasksList.get(position).getCategory());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("detail", tasksList.get(position));
-                context.startActivity(intent);
-            }
-        });
+        if (tasksList.size() != 0) {
+            holder.title.setText(tasksList.get(position).getTitle());
+            holder.description.setText(tasksList.get(position).getDesc());
+            holder.category.setText(tasksList.get(position).getCategory());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("detail", tasksList.get(position));
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            holder.itemView.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -67,5 +71,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             description.setVisibility(View.INVISIBLE);
             category = itemView.findViewById(R.id.taskCategory);
         }
+    }
+
+
+    public void updateList(List<Model> updateList ) {
+        this.tasksList.clear();
+
+
     }
 }

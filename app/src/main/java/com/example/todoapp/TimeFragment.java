@@ -50,4 +50,13 @@ public class TimeFragment extends Fragment {
             isConnected = false;
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(isConnected){
+            getActivity().unbindService(serviceConnection);
+            isConnected = false;
+        }
+    }
 }

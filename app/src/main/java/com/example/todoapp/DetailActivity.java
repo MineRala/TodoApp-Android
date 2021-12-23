@@ -30,7 +30,6 @@ public class DetailActivity extends AppCompatActivity {
             model = (Model) object;
         }
 
-        onRestart();
 
         titleText = findViewById(R.id.titleTextView);
         descriptionText = findViewById(R.id.descriptionTextView);
@@ -43,8 +42,15 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (model != null) {
+            titleText.setText(model.getTitle());
+            descriptionText.setText(model.getDesc());
+            categoryText.setText(model.getCategory());
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,7 +73,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     public void shareTask() {
         Intent shareIntent = new Intent();

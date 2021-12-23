@@ -84,7 +84,10 @@ public class ListFragment extends Fragment{
     void deleteAllTasks() {
         Database database = new Database(getActivity());
         database.deleteAllTasks();
-        getActivity().recreate();
+        fetchAllTasksFromDatabase();
+        adapter.updateList(tasksList);
+        adapter = new Adapter(getContext(),tasksList);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
