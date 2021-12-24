@@ -68,6 +68,14 @@ public class DetailActivity extends AppCompatActivity {
         }
         if (id == R.id.edit) {
             Intent intent = new Intent(this,UpdateActivity.class);
+            String title = titleText.getText().toString();
+            String description = descriptionText.getText().toString();
+            String category = categoryText.getText().toString();
+            String taskId = model.getId();
+            intent.putExtra("Title",title);
+            intent.putExtra("Description",description);
+            intent.putExtra("Category",category);
+            intent.putExtra("Id", taskId);
             startActivity(intent);
             return false;
         }

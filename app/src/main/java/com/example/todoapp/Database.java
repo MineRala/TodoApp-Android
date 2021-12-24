@@ -20,7 +20,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String KEY_DESCRIPTION= "description";
     private static final String KEY_CATEGORY = "category";
 
-    public Database(@Nullable Context context) {
+    Database(@Nullable Context context) {
        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -72,5 +72,29 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_TASK;
         database.execSQL(query);
+    }
+    public void deleteOneRow(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_TASK, "id=?", new String[]{id});
+        if(result == -1){
+            Toast.makeText(context, "Failed To Delete!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void updateTasks(String title, String description, String category, String id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_TITLE, title);
+        contentValues.put(KEY_DESCRIPTION, description);
+        contentValues.put(KEY_CATEGORY, category);
+
+        long result = database.update(TABLE_TASK,contentValues,"id=?", new String[]{id});
+        if (result == -1) {
+            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context,"Done",Toast.LENGTH_SHORT).show();
+        }
     }
 }

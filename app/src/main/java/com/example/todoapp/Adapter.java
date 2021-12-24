@@ -1,31 +1,26 @@
 package com.example.todoapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     List<Model> tasksList;
+    ItemClickListener itemClickListener;
 
-    public Adapter(Context context, List<Model> tasksList) {
+
+    public Adapter(Context context, List<Model> tasksList, ItemClickListener itemClickListener ) {
         this.context = context;
         this.tasksList = tasksList;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -52,6 +47,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         } else {
             holder.itemView.setVisibility(View.INVISIBLE);
         }
+
+        holder.deleteButton.setOnClickListener(v -> {
+            itemClickListener.onItemClicked(tasksList.get(holder.getBindingAdapterPosition()).getId());
+            tasksList.remove(holder.getBindingAdapterPosition());
+            notifyItemRemoved(holder.getBindingAdapterPosition());
+        });
+
     }
 
     @Override
@@ -63,6 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, description, category;
+        ImageView deleteButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,13 +73,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             description = itemView.findViewById(R.id.taskDescription);
             description.setVisibility(View.INVISIBLE);
             category = itemView.findViewById(R.id.taskCategory);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
 
-
     public void updateList(List<Model> updateList ) {
         this.tasksList.clear();
-
-
     }
+
+    public interface ItemClickListener {
+        public void onItemClicked(String itemId);
+    }
+
 }

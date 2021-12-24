@@ -37,7 +37,6 @@ public class AddActivity extends AppCompatActivity {
                     Database database = new Database(AddActivity.this);
                     database.addTasks(titleText.getText().toString(),descriptionText.getText().toString(),categoryText.getText().toString());
                     Intent intent = new Intent(AddActivity.this,MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 } else {
@@ -61,7 +60,6 @@ public class AddActivity extends AppCompatActivity {
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
-            // Update UI to reflect text being shared
             descriptionText.setText(sharedText);
         }
     }
