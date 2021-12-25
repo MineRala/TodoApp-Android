@@ -1,11 +1,13 @@
 package com.example.todoapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentManager;
@@ -26,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListFragment extends Fragment implements Adapter.ItemClickListener {
+public class ListFragment extends Fragment {
     RecyclerView recyclerView;
     FloatingActionButton fab;
     Adapter adapter;
@@ -54,8 +56,8 @@ public class ListFragment extends Fragment implements Adapter.ItemClickListener 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksList = new ArrayList<>();
         database = new Database(getContext());
-        fetchAllTasksFromDatabase();
-        adapter = new Adapter(getContext(),tasksList, this);
+        tasksList.addAll(database.getIsDoneTasks());
+        adapter = new Adapter(getContext(),tasksList);
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,26 +68,33 @@ public class ListFragment extends Fragment implements Adapter.ItemClickListener 
             }
         });
 
-        return view;
-    }
-
-    void fetchAllTasksFromDatabase() {
-        Cursor cursor = database.readAllData();
-        if (cursor.getCount() == 0) {
-            Toast.makeText(getActivity(),"No Data to show", Toast.LENGTH_SHORT).show();
-        } else {
-            while (cursor.moveToNext()) {
-                tasksList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2), cursor.getString(3)));
+        adapter.setListener(new Adapter.Listener() {
+            @Override
+            public void onItemDeleteClicked(String itemId) {
+                database.deleteOneRow(itemId);
             }
-        }
 
+            @Override
+            public void onItemClicked(int position) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("detail", tasksList.get(position));
+                getActivity().startActivity(intent);
+            }
+
+            @Override
+            public void onItemDone(String itemId) {
+                database.taskDone(itemId,1);
+            }
+
+        });
+
+        return view;
     }
 
     void deleteAllTasks() {
         Database database = new Database(getActivity());
-        database.deleteAllTasks();
-        fetchAllTasksFromDatabase();
-        adapter.updateList(tasksList);
+        database.deleteAllData();
+        adapter.updateList(database.getIsDoneTasks());
         recyclerView.setAdapter(adapter);
     }
 
@@ -113,6 +122,7 @@ public class ListFragment extends Fragment implements Adapter.ItemClickListener 
         });
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -120,14 +130,9 @@ public class ListFragment extends Fragment implements Adapter.ItemClickListener 
             return false;
         }
         if (id == R.id.deleteAll) {
-            deleteAllTasks();
+          deleteAllTasks();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemClicked(String itemId) {
-      database.deleteOneRow(itemId);
-
-    }
 }

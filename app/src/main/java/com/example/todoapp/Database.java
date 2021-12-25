@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.ColorSpace;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper {
     Context context;
@@ -19,6 +22,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESCRIPTION= "description";
     private static final String KEY_CATEGORY = "category";
+    private static final String KEY_DONE = "done";
 
     Database(@Nullable Context context) {
        super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,7 +35,8 @@ public class Database extends SQLiteOpenHelper {
             String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_TASK + "("
                        + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE + " TEXT,"
                        + KEY_DESCRIPTION + " TEXT,"
-                       + KEY_CATEGORY + " TEXT" + ");";
+                       + KEY_CATEGORY + " TEXT,"
+                       + KEY_DONE + " INTEGER" + ");";
            db.execSQL(CREATE_ACCOUNTS_TABLE);
     }
 
@@ -47,6 +52,7 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put(KEY_TITLE, title);
         contentValues.put(KEY_DESCRIPTION, description);
         contentValues.put(KEY_CATEGORY, category);
+        contentValues.put(KEY_DONE, 0);
 
         long resultValue = database.insert(TABLE_TASK, null, contentValues);
 
@@ -68,11 +74,12 @@ public class Database extends SQLiteOpenHelper {
         return cursor;
     }
 
-    void deleteAllTasks() {
+    void deleteAllData() {
         SQLiteDatabase database = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_TASK;
         database.execSQL(query);
     }
+
     public void deleteOneRow(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_TASK, "id=?", new String[]{id});
@@ -96,5 +103,37 @@ public class Database extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context,"Done",Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    void taskDone(String id, int isDone) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_DONE, isDone);
+        database.update(TABLE_TASK,contentValues,"id=?", new String[]{id});
+        database.close();
+    }
+
+    ArrayList<Model> getIsDoneTasks() {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String[] rows = {KEY_ID,KEY_TITLE,KEY_DESCRIPTION,KEY_CATEGORY,KEY_DONE};
+        Cursor cursor = database.query(TABLE_TASK,rows,null,null,null,null,null);
+        ArrayList<Model> tempList = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            tempList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getInt(4)));
+        }
+        cursor.close();
+        database.close();
+
+        ArrayList<Model> returnTaskList = new ArrayList<>();
+
+        for (int i = 0; i < tempList.size(); i++) {
+            if(tempList.get(i).getIsDone() == 0) {
+                returnTaskList.add(tempList.get(i));
+            }
+        }
+
+        return returnTaskList;
     }
 }

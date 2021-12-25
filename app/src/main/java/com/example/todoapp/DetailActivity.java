@@ -30,14 +30,13 @@ public class DetailActivity extends AppCompatActivity {
             model = (Model) object;
         }
 
-
         titleText = findViewById(R.id.titleTextView);
         descriptionText = findViewById(R.id.descriptionTextView);
         categoryText = findViewById(R.id.categoryTextView);
 
         if (model != null) {
             titleText.setText(model.getTitle());
-            descriptionText.setText(model.getDesc());
+            descriptionText.setText(model.getDescription());
             categoryText.setText(model.getCategory());
         }
     }
@@ -47,7 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onRestart();
         if (model != null) {
             titleText.setText(model.getTitle());
-            descriptionText.setText(model.getDesc());
+            descriptionText.setText(model.getDescription());
             categoryText.setText(model.getCategory());
         }
     }
@@ -90,5 +89,13 @@ public class DetailActivity extends AppCompatActivity {
         shareIntent.setType("text/plain");
         shareIntent = Intent.createChooser(shareIntent,"Share via: ");
         startActivity(shareIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(DetailActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

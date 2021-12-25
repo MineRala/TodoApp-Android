@@ -26,6 +26,8 @@ public class UpdateActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         setTitle(R.string.update_task);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,11 +60,14 @@ public class UpdateActivity extends AppCompatActivity {
                     Database database = new Database(UpdateActivity.this);
                     database.updateTasks(titleText.getText().toString(),descriptionText.getText().toString(),categoryText.getText().toString(), id);
                     Intent intent = new Intent(UpdateActivity.this, DetailActivity.class);
-                    String title = titleText.getText().toString();
+                   String title = titleText.getText().toString();
                     String description = descriptionText.getText().toString();
-                    String category = categoryText.getText().toString();
+                   String category = categoryText.getText().toString();
                     intent.putExtra("detail", new Model(id,title,description,category));
+                   // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    finish();
                 } else{
                     Toast.makeText(UpdateActivity.this,"Both Fields Required", Toast.LENGTH_SHORT).show();
                 }

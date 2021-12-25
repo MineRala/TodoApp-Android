@@ -4,12 +4,37 @@ import java.io.Serializable;
 
 public class Model implements Serializable {
     private String id,title, description, category;
+    private int isDone;
+
+    public Model(String id, String title, String description, String category,int isDone) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.isDone = isDone;
+    }
 
     public Model(String id, String title, String description, String category) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(int isDone) {
+        this.isDone = isDone;
     }
 
     public String getId() {
@@ -26,14 +51,6 @@ public class Model implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDesc() {
-        return description;
-    }
-
-    public void setDesc(String desc) {
-        this.description = desc;
     }
 
     public String getCategory() {

@@ -5,22 +5,33 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     List<Model> tasksList;
-    ItemClickListener itemClickListener;
+    Listener listener;
 
+    interface Listener {
+        void onItemDeleteClicked(String itemId);
+        void onItemClicked(int position);
+        void onItemDone(String itemId);
+    }
 
-    public Adapter(Context context, List<Model> tasksList, ItemClickListener itemClickListener ) {
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public Adapter(Context context, List<Model> tasksList ) {
         this.context = context;
         this.tasksList = tasksList;
-        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -34,24 +45,39 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         if (tasksList.size() != 0) {
             holder.title.setText(tasksList.get(position).getTitle());
-            holder.description.setText(tasksList.get(position).getDesc());
+            holder.description.setText(tasksList.get(position).getDescription());
             holder.category.setText(tasksList.get(position).getCategory());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("detail", tasksList.get(position));
-                    context.startActivity(intent);
+                    listener.onItemClicked(position);
                 }
             });
         } else {
             holder.itemView.setVisibility(View.INVISIBLE);
         }
 
-        holder.deleteButton.setOnClickListener(v -> {
-            itemClickListener.onItemClicked(tasksList.get(holder.getBindingAdapterPosition()).getId());
-            tasksList.remove(holder.getBindingAdapterPosition());
-            notifyItemRemoved(holder.getBindingAdapterPosition());
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemDeleteClicked(tasksList.get(holder.getBindingAdapterPosition()).getId());
+                    tasksList.remove(holder.getBindingAdapterPosition());
+                    notifyItemRemoved(holder.getBindingAdapterPosition());
+                }
+            }
+        });
+
+        holder.todoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    listener.onItemDone(tasksList.get(holder.getBindingAdapterPosition()).getId());
+                    tasksList.remove(holder.getBindingAdapterPosition());
+                    notifyItemRemoved(holder.getBindingAdapterPosition());
+                }
+            }
         });
 
     }
@@ -61,11 +87,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         return tasksList.size();
     }
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, description, category;
         ImageView deleteButton;
+        CardView cardView;
+        CheckBox todoCheckBox;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +101,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             description.setVisibility(View.INVISIBLE);
             category = itemView.findViewById(R.id.taskCategory);
             deleteButton = itemView.findViewById(R.id.deleteButton);
+            cardView = itemView.findViewById(R.id.cardView);
+            todoCheckBox = itemView.findViewById(R.id.todoCheckBox);
         }
     }
 
@@ -81,8 +110,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         this.tasksList.clear();
     }
 
-    public interface ItemClickListener {
-        public void onItemClicked(String itemId);
-    }
 
 }
