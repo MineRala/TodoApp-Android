@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Calendar;
 
 public class NotificationFragment extends Fragment implements View.OnClickListener{
@@ -25,6 +28,7 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
     TextView cancelButton, saveButton, getTimeButton;
     EditText name;
     TimePicker timePicker;
+    ConstraintLayout constraintLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
         cancelButton.setOnClickListener((View.OnClickListener) this);
         saveButton.setOnClickListener((View.OnClickListener) this);
         getTimeButton = view.findViewById(R.id.buttonGetTime);
+        constraintLayout = view.findViewById(R.id.constraintLayout);
 
         getTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +86,17 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
                 startTime.set(Calendar.SECOND,0);
                 long alarmStartTime = startTime.getTimeInMillis();
                 alarmManager.set(AlarmManager.RTC_WAKEUP,alarmStartTime,alarmIntent);
-                Toast.makeText(getActivity(), R.string.done, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), R.string.done, Toast.LENGTH_SHORT).show();
+                Snackbar
+                        .make(constraintLayout, "Notification set to " + hour + ":" + minute, Snackbar.LENGTH_LONG)
+                        .setAction("Cancel", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alarmManager.cancel(alarmIntent);
+                            }
+                        })
+                        .setActionTextColor(getResources().getColor(R.color.red))
+                        .show();
                 break;
 
             case R.id.cancelButton:

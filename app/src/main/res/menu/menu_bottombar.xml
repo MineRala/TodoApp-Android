@@ -6,6 +6,11 @@
         android:title="@string/list"
         />
     <item
+        android:id="@+id/done"
+        android:icon="@drawable/ic_baseline_done"
+        android:title="@string/done"
+        />
+    <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_baseline_person"
         android:title="@string/profile"

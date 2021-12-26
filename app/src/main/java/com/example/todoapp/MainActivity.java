@@ -72,11 +72,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.done:
+                        if (getSupportActionBar() != null) {
+                            getSupportActionBar().setTitle(R.string.done);
+                        }
+                        viewPager.setCurrentItem(1);
+                        break;
                     case R.id.profile:
                         if (getSupportActionBar() != null) {
                             getSupportActionBar().setTitle(R.string.profile);
                         }
-                        viewPager.setCurrentItem(1);
+                        viewPager.setCurrentItem(2);
                         break;
                     default:
                         if (getSupportActionBar() != null) {
@@ -114,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onPageSelected(int position) {
                 switch (position) {
                     case 1:
+                        if (getSupportActionBar() != null) {
+                            getSupportActionBar().setTitle(R.string.done);
+                        }
+                        bottomNavigationView.getMenu().findItem(R.id.done).setChecked(true);
+                        break;
+                    case 2:
                         if (getSupportActionBar() != null) {
                             getSupportActionBar().setTitle(R.string.profile);
                         }

@@ -117,6 +117,8 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="start_service">Start Service</string>
     <string name="stop_service">Stop Service</string>
     <string name="get_time">Get Time</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

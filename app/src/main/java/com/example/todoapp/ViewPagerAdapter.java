@@ -15,6 +15,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 1:
+                return new DoneFragment();
+            case 2:
                 return new ProfileFragment();
             default:
                 return new ListFragment();
@@ -23,7 +25,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        // List and Profile fragments.
-        return 2;
+        // List, Done and Profile fragments.
+        return 3;
     }
 }
