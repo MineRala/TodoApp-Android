@@ -17,9 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
         <activity
-            android:name=".LocationActivity"
+            android:name=".DoneActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".LocationActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DetailActivity"
             android:exported="false"
@@ -30,8 +34,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UpdateActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
@@ -42,16 +45,18 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ForgotPassword"
+            android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -70,7 +75,6 @@
         </activity>
 
         <receiver android:name=".AlarmReceiver" />
-
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -100,10 +104,11 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <service android:name=".GPS_Service"/>
-        <service android:name=".MyLocalBoundService"
+        <service android:name=".GPS_Service" />
+        <service
+            android:name=".MyLocalBoundService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -3,14 +3,15 @@ package com.example.todoapp;
 import java.io.Serializable;
 
 public class Model implements Serializable {
-    private String id,title, description, category;
+    private String id,title, description, category, timestamp;
     private int isDone;
 
-    public Model(String id, String title, String description, String category,int isDone) {
+    public Model(String id, String title, String description, String category, String timestamp, int isDone) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
+        this.timestamp = timestamp;
         this.isDone = isDone;
     }
 
@@ -19,6 +20,14 @@ public class Model implements Serializable {
         this.title = title;
         this.description = description;
         this.category = category;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getDescription() {

@@ -13,11 +13,11 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_policy);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.scrollable_toolbar);
         setSupportActionBar(toolbar);
         setTitle(R.string.privacy_policy);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        textView = findViewById(R.id.textViewPrivicy);
+        textView = findViewById(R.id.textViewPrivacy);
         textView.setText(R.string.privacy_policy_text);
     }
 }

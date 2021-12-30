@@ -118,6 +118,9 @@ Gizlilik Politikam hakkında herhangi bir sorunuz veya öneriniz varsa, benimle 
     <string name="start_service">Servisi Başlat</string>
     <string name="stop_service">Servisi Durdur</string>
     <string name="get_time">Zamanı Al</string>
-
-
+    <string name="message">Mesaj</string>
+    <string name="add_reminder">Hatırlatıcı Ekle</string>
+    <string name="cancel">İptal</string>
+    <string name="set">Ayarla</string>
+    <string name="notification_set_to">Bildirim ayarlandı</string>
 </resources>

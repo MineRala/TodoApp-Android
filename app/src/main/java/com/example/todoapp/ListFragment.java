@@ -1,30 +1,20 @@
 package com.example.todoapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +46,11 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksList = new ArrayList<>();
         database = new Database(getContext());
-        tasksList.addAll(database.getIsDoneTasks());
-        adapter = new Adapter(getContext(),tasksList);
+
+        adapter = new Adapter(getContext());
+        if (database.getIsNotDoneTasks().size() != 0) {
+            adapter.updateList(database.getIsNotDoneTasks());
+        }
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,31 +63,55 @@ public class ListFragment extends Fragment {
 
         adapter.setListener(new Adapter.Listener() {
             @Override
-            public void onItemDeleteClicked(String itemId) {
+            public  void onItemDeleteClicked(String itemId) {
+              // return confirmDialog(itemId);
                 database.deleteOneRow(itemId);
             }
 
             @Override
-            public void onItemClicked(int position) {
+            public void onItemClicked(Model task) {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("detail", tasksList.get(position));
+                intent.putExtra("detail", task);
                 getActivity().startActivity(intent);
             }
 
             @Override
-            public void onItemDone(String itemId) {
-                database.taskDone(itemId,1);
+            public void onItemDone(String itemId, int isChecked) {
+                database.taskDone(itemId,isChecked);
             }
 
         });
 
         return view;
     }
+/*
+    public boolean confirmDialog(String itemId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Delete Confirmation" );
+        builder.setMessage("Are you sure you want to delete task ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                database.deleteOneRow(itemId);
 
+            }
+
+        });
+        return true;
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        return false;
+        builder.create().show();
+       if (builder.setPositiveButton())
+    }
+*/
     void deleteAllTasks() {
         Database database = new Database(getActivity());
         database.deleteAllData();
-        adapter.updateList(database.getIsDoneTasks());
+        adapter.clearData();
         recyclerView.setAdapter(adapter);
     }
 
@@ -114,10 +131,8 @@ public class ListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // filtreleme burada yapılacak
-                // adapter.getFilter().filter(newText)
-                // return true;
-                return false;
+                adapter.getFilter().filter(newText);
+                 return true;
             }
         });
     }
@@ -125,14 +140,18 @@ public class ListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.search) {
-            return false;
+
+        switch (item.getItemId()) {
+            case R.id.doneTasks:
+                Intent intent = new Intent(getActivity(), DoneActivity.class);
+                getActivity().startActivity(intent);
+                return true;
+            case R.id.deleteAll:
+                deleteAllTasks();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        if (id == R.id.deleteAll) {
-          deleteAllTasks();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

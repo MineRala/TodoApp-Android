@@ -22,7 +22,9 @@ public class Database extends SQLiteOpenHelper {
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESCRIPTION= "description";
     private static final String KEY_CATEGORY = "category";
+    private static final String KEY_TIMESTAMP = "timestamp";
     private static final String KEY_DONE = "done";
+
 
     Database(@Nullable Context context) {
        super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,9 +35,11 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
             String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + TABLE_TASK + "("
-                       + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE + " TEXT,"
+                       + KEY_ID + " INTEGER PRIMARY KEY,"
+                       + KEY_TITLE + " TEXT,"
                        + KEY_DESCRIPTION + " TEXT,"
                        + KEY_CATEGORY + " TEXT,"
+                       + KEY_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
                        + KEY_DONE + " INTEGER" + ");";
            db.execSQL(CREATE_ACCOUNTS_TABLE);
     }
@@ -52,7 +56,9 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put(KEY_TITLE, title);
         contentValues.put(KEY_DESCRIPTION, description);
         contentValues.put(KEY_CATEGORY, category);
+        contentValues.put(KEY_TIMESTAMP, "");
         contentValues.put(KEY_DONE, 0);
+
 
         long resultValue = database.insert(TABLE_TASK, null, contentValues);
 
@@ -114,14 +120,14 @@ public class Database extends SQLiteOpenHelper {
         database.close();
     }
 
-    ArrayList<Model> getIsDoneTasks() {
+    ArrayList<Model> getIsNotDoneTasks() {
         SQLiteDatabase database = this.getReadableDatabase();
-        String[] rows = {KEY_ID,KEY_TITLE,KEY_DESCRIPTION,KEY_CATEGORY,KEY_DONE};
+        String[] rows = {KEY_ID,KEY_TITLE,KEY_DESCRIPTION,KEY_CATEGORY,KEY_TIMESTAMP,KEY_DONE};
         Cursor cursor = database.query(TABLE_TASK,rows,null,null,null,null,null);
         ArrayList<Model> tempList = new ArrayList<>();
 
         while (cursor.moveToNext()){
-            tempList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getInt(4)));
+            tempList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5)));
         }
         cursor.close();
         database.close();
@@ -130,6 +136,29 @@ public class Database extends SQLiteOpenHelper {
 
         for (int i = 0; i < tempList.size(); i++) {
             if(tempList.get(i).getIsDone() == 0) {
+                returnTaskList.add(tempList.get(i));
+            }
+        }
+
+        return returnTaskList;
+    }
+
+    ArrayList<Model> getIsDoneTasks() {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String[] rows = {KEY_ID,KEY_TITLE,KEY_DESCRIPTION,KEY_CATEGORY,KEY_TIMESTAMP,KEY_DONE};
+        Cursor cursor = database.query(TABLE_TASK,rows,null,null,null,null,null);
+        ArrayList<Model> tempList = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            tempList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5)));
+        }
+        cursor.close();
+        database.close();
+
+        ArrayList<Model> returnTaskList = new ArrayList<>();
+
+        for (int i = 0; i < tempList.size(); i++) {
+            if(tempList.get(i).getIsDone() == 1) {
                 returnTaskList.add(tempList.get(i));
             }
         }

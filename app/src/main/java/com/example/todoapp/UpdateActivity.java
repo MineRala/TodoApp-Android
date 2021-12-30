@@ -69,7 +69,7 @@ public class UpdateActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else{
-                    Toast.makeText(UpdateActivity.this,"Both Fields Required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateActivity.this,getResources().getString(R.string.all_fields), Toast.LENGTH_SHORT).show();
                 }
             }
         });
