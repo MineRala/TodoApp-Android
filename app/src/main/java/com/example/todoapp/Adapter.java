@@ -55,7 +55,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-
             Model task = tasksList.get(position);
             holder.title.setText(task.getTitle());
             holder.description.setText(task.getDescription());
@@ -67,7 +66,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             } else {
                 holder.todoCheckBox.setChecked(false);
             }
-
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +79,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             public void onClick(View v) {
                 if (listener != null) {
                     listener.onItemDeleteClicked(tasksList.get(holder.getBindingAdapterPosition()).getId(), holder.getBindingAdapterPosition());
-                    // tasksList.remove(holder.getBindingAdapterPosition());
-                   // notifyItemRemoved(holder.getBindingAdapterPosition());
                 }
             }
         });

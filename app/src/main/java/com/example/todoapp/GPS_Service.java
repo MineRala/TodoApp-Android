@@ -21,7 +21,6 @@ public class GPS_Service extends Service {
     LocationListener listener;
     LocationManager locationManager;
 
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -49,7 +48,6 @@ public class GPS_Service extends Service {
         };
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,20000,5,listener);
-
     }
 
     @Override

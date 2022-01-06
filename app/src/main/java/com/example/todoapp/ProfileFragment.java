@@ -248,10 +248,8 @@ public class ProfileFragment extends Fragment {
         builder.show();
     }
 
-
     public static ProfileFragment getInstance(){
         return instance;
     }
-
 
 }

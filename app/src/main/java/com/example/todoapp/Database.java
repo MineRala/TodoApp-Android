@@ -56,7 +56,6 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put(KEY_TITLE, title);
         contentValues.put(KEY_DESCRIPTION, description);
         contentValues.put(KEY_CATEGORY, category);
-       // contentValues.put(KEY_TIMESTAMP, );
         contentValues.put(KEY_DONE, 0);
 
         long resultValue = database.insert(TABLE_TASK, null, contentValues);
@@ -66,17 +65,6 @@ public class Database extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context,R.string.task_added_successfully, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    Cursor readAllData() {
-        String query = "SELECT * FROM " + TABLE_TASK;
-        SQLiteDatabase database = this.getReadableDatabase();
-
-        Cursor cursor = null;
-        if (database!= null) {
-            cursor = database.rawQuery(query, null);
-        }
-        return cursor;
     }
 
     void deleteAllData() {

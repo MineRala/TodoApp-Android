@@ -145,27 +145,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.nav_about:
                 intent = new Intent(this, AboutActivity.class);
-                item.setChecked(true);
                 break;
             case R.id.nav_privacy_policy:
                 intent = new Intent(this, PrivacyPolicyActivity.class);
-                item.setChecked(true);
                 break;
             case R.id.notification:
                 intent = new Intent(this, NotificationActivity.class);
-                item.setChecked(true);
                 break;
             case R.id.location:
                 intent = new Intent(this, LocationActivity.class);
-                item.setChecked(true);
                 break;
             case R.id.nav_logout:
                 logout();
-                item.setChecked(true);
                 break;
             default:
                 new ListFragment();
-                item.setChecked(true);
         }
         if (intent != null) {
             startActivity(intent);

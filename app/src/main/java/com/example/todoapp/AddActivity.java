@@ -37,8 +37,6 @@ public class AddActivity extends AppCompatActivity {
                     Database database = new Database(AddActivity.this);
                     database.addTasks(titleText.getText().toString(),descriptionText.getText().toString(),categoryText.getText().toString());
                     Intent intent = new Intent(AddActivity.this,MainActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
                     Toast.makeText(AddActivity.this,getResources().getString(R.string.all_fields), Toast.LENGTH_SHORT).show();

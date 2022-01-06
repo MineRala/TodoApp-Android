@@ -45,6 +45,14 @@ public class LocationActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(LocationActivity.this,MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,4 +111,6 @@ public class LocationActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

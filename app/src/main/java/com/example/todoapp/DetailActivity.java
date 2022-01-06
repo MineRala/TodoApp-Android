@@ -25,7 +25,7 @@ public class DetailActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back);
 
         setSupportActionBar(toolbar);
-        setTitle(R.string.update_task);
+        setTitle(R.string.task_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

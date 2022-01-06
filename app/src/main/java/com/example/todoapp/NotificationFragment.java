@@ -86,7 +86,6 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
                 startTime.set(Calendar.SECOND,0);
                 long alarmStartTime = startTime.getTimeInMillis();
                 alarmManager.set(AlarmManager.RTC_WAKEUP,alarmStartTime,alarmIntent);
-               // Toast.makeText(getActivity(), R.string.done, Toast.LENGTH_SHORT).show();
                 Snackbar
                         .make(constraintLayout, getResources().getString(R.string.notification_set_to) + " " +hour + ":" + minute, Snackbar.LENGTH_LONG)
                         .setAction(getResources().getString(R.string.cancel), new View.OnClickListener() {
