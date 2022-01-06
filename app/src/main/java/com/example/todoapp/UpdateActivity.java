@@ -32,7 +32,17 @@ public class UpdateActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Bundle extras = getIntent().getExtras();
+
+                if (extras != null) {
+                    Intent intent = new Intent(UpdateActivity.this, DetailActivity.class);
+                    String title = extras.getString("Title");
+                    String description = extras.getString("Description");
+                    String category = extras.getString("Category");
+                    intent.putExtra("detail", new Model(id,title,description,category));
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -60,12 +70,10 @@ public class UpdateActivity extends AppCompatActivity {
                     Database database = new Database(UpdateActivity.this);
                     database.updateTasks(titleText.getText().toString(),descriptionText.getText().toString(),categoryText.getText().toString(), id);
                     Intent intent = new Intent(UpdateActivity.this, DetailActivity.class);
-                   String title = titleText.getText().toString();
+                    String title = titleText.getText().toString();
                     String description = descriptionText.getText().toString();
-                   String category = categoryText.getText().toString();
+                    String category = categoryText.getText().toString();
                     intent.putExtra("detail", new Model(id,title,description,category));
-                   // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 } else{
@@ -73,5 +81,21 @@ public class UpdateActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            Intent intent = new Intent(UpdateActivity.this, DetailActivity.class);
+            String title = extras.getString("Title");
+            String description = extras.getString("Description");
+            String category = extras.getString("Category");
+            intent.putExtra("detail", new Model(id,title,description,category));
+            startActivity(intent);
+            finish();
+        }
     }
 }

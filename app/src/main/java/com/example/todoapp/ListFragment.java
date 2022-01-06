@@ -1,6 +1,9 @@
 package com.example.todoapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +40,13 @@ public class ListFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        adapter.updateList(database.getIsNotDoneTasks());
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
@@ -48,24 +58,19 @@ public class ListFragment extends Fragment {
         database = new Database(getContext());
 
         adapter = new Adapter(getContext());
-        if (database.getIsNotDoneTasks().size() != 0) {
-            adapter.updateList(database.getIsNotDoneTasks());
-        }
+        adapter.updateList(database.getIsNotDoneTasks());
+
         recyclerView.setAdapter(adapter);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),AddActivity.class);
-                startActivity(intent);
-            }
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(),AddActivity.class);
+            startActivity(intent);
         });
 
         adapter.setListener(new Adapter.Listener() {
             @Override
-            public  void onItemDeleteClicked(String itemId) {
-              // return confirmDialog(itemId);
-                database.deleteOneRow(itemId);
+            public  void onItemDeleteClicked(String itemId, int position) {
+               DialogExt.confirmDialog(itemId,position,getActivity(),database,adapter,database.getIsNotDoneTasks());
             }
 
             @Override
@@ -79,35 +84,10 @@ public class ListFragment extends Fragment {
             public void onItemDone(String itemId, int isChecked) {
                 database.taskDone(itemId,isChecked);
             }
-
         });
-
         return view;
     }
-/*
-    public boolean confirmDialog(String itemId) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Delete Confirmation" );
-        builder.setMessage("Are you sure you want to delete task ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                database.deleteOneRow(itemId);
 
-            }
-
-        });
-        return true;
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        return false;
-        builder.create().show();
-       if (builder.setPositiveButton())
-    }
-*/
     void deleteAllTasks() {
         Database database = new Database(getActivity());
         database.deleteAllData();
@@ -119,24 +99,7 @@ public class ListFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_list,menu);
         super.onCreateOptionsMenu(menu, inflater);
-
-        final MenuItem search = menu.findItem(R.id.search);
-        final SearchView searchView = (SearchView) search.getActionView();
-        searchView.setQueryHint(getResources().getString(R.string.search_here));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                 return true;
-            }
-        });
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

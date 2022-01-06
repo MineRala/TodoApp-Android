@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +22,19 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Toolbar toolbar =  findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back);
+
         setSupportActionBar(toolbar);
-        setTitle(R.string.task_detail);
+        setTitle(R.string.update_task);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         final Object object = getIntent().getSerializableExtra("detail");
         if (object instanceof Model) {
             model = (Model) object;
@@ -76,6 +86,7 @@ public class DetailActivity extends AppCompatActivity {
             intent.putExtra("Category",category);
             intent.putExtra("Id", taskId);
             startActivity(intent);
+            finish();
             return false;
         }
         return super.onOptionsItemSelected(item);
@@ -87,15 +98,13 @@ public class DetailActivity extends AppCompatActivity {
         shareIntent.putExtra(Intent.EXTRA_SUBJECT,titleText.getText().toString() + " - " + categoryText.getText().toString());
         shareIntent.putExtra(Intent.EXTRA_TEXT,descriptionText.getText().toString());
         shareIntent.setType("text/plain");
-        shareIntent = Intent.createChooser(shareIntent,"Share via: ");
+        shareIntent = Intent.createChooser(shareIntent,getResources().getString(R.string.share_via));
         startActivity(shareIntent);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(DetailActivity.this,MainActivity.class);
-        startActivity(intent);
         finish();
     }
 }

@@ -3,6 +3,7 @@ package com.example.todoapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -19,5 +20,12 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textView = findViewById(R.id.textViewPrivacy);
         textView.setText(R.string.privacy_policy_text);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(PrivacyPolicyActivity.this,MainActivity.class);
+        startActivity(intent);
     }
 }

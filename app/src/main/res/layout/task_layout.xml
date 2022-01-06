@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:padding="8dp">
 
         <CheckBox
@@ -37,6 +37,7 @@
             android:layout_marginEnd="60dp"
             android:layout_toRightOf="@id/todoCheckBox"
             android:fontFamily="@font/roboto_medium"
+            android:maxLines="1"
             android:textAlignment="viewStart"
             android:textColor="@color/titleColor"
             android:textSize="20sp"
@@ -53,6 +54,8 @@
             android:layout_marginEnd="60dp"
             android:layout_toRightOf="@id/todoCheckBox"
             android:fontFamily="@font/roboto_medium"
+            android:lines="1"
+            android:maxLines="1"
             android:textColor="@color/superTitleColor"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,21 +74,26 @@
             android:id="@+id/deleteButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:textColor="@color/titleColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/titleColor"
             app:srcCompat="@drawable/ic_baseline_delete" />
 
         <TextView
             android:id="@+id/taskTime"
-            android:layout_width="0dp"
-            android:text="aassddd"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="-8dp"
+            android:layout_marginTop="8dp"
+            android:text="4 Ocak"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/taskCategory" />
+            app:layout_constraintHorizontal_bias="0.026"
+            app:layout_constraintStart_toStartOf="@id/taskTitle"
+            app:layout_constraintTop_toBottomOf="@+id/taskCategory"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

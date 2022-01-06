@@ -39,7 +39,7 @@ public class Database extends SQLiteOpenHelper {
                        + KEY_TITLE + " TEXT,"
                        + KEY_DESCRIPTION + " TEXT,"
                        + KEY_CATEGORY + " TEXT,"
-                       + KEY_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
+                       + KEY_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
                        + KEY_DONE + " INTEGER" + ");";
            db.execSQL(CREATE_ACCOUNTS_TABLE);
     }
@@ -56,16 +56,15 @@ public class Database extends SQLiteOpenHelper {
         contentValues.put(KEY_TITLE, title);
         contentValues.put(KEY_DESCRIPTION, description);
         contentValues.put(KEY_CATEGORY, category);
-        contentValues.put(KEY_TIMESTAMP, "");
+       // contentValues.put(KEY_TIMESTAMP, );
         contentValues.put(KEY_DONE, 0);
-
 
         long resultValue = database.insert(TABLE_TASK, null, contentValues);
 
         if (resultValue == -1) {
-            Toast.makeText(context,"Data not added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,R.string.task_not_added, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context,"Data added successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,R.string.task_added_successfully, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -82,7 +81,7 @@ public class Database extends SQLiteOpenHelper {
 
     void deleteAllData() {
         SQLiteDatabase database = this.getWritableDatabase();
-        String query = "DELETE FROM " + TABLE_TASK;
+        String query = "DELETE FROM tasks WHERE done=0";
         database.execSQL(query);
     }
 
@@ -90,9 +89,9 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_TASK, "id=?", new String[]{id});
         if(result == -1){
-            Toast.makeText(context, "Failed To Delete!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.failed_delete, Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.deleted_successfully, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -105,12 +104,11 @@ public class Database extends SQLiteOpenHelper {
 
         long result = database.update(TABLE_TASK,contentValues,"id=?", new String[]{id});
         if (result == -1) {
-            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,R.string.failed,Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context,"Done",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,R.string.done,Toast.LENGTH_SHORT).show();
         }
     }
-
 
     void taskDone(String id, int isDone) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -139,7 +137,6 @@ public class Database extends SQLiteOpenHelper {
                 returnTaskList.add(tempList.get(i));
             }
         }
-
         return returnTaskList;
     }
 
@@ -162,7 +159,6 @@ public class Database extends SQLiteOpenHelper {
                 returnTaskList.add(tempList.get(i));
             }
         }
-
         return returnTaskList;
     }
 }

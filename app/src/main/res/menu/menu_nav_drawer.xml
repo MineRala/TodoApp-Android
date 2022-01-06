@@ -7,37 +7,38 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home"
             android:title="@string/home"
-            android:checked="true"
+
+
             />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_baseline_about"
             android:title="@string/about"
-            android:checked="true"
+
             />
         <item
             android:id="@+id/nav_privacy_policy"
             android:icon="@drawable/ic_baseline_privacy"
             android:title="@string/privacy_policy"
-            android:checked="true"
+
             />
         <item
             android:id="@+id/notification"
             android:icon="@drawable/ic_baseline_access_alarm"
             android:title="@string/notification"
-            android:checked="true"
+
             />
         <item
             android:id="@+id/location"
             android:icon="@drawable/ic_baseline_location_on"
             android:title="@string/location"
-            android:checked="true"
+
             />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_baseline_logout_nav"
             android:title="@string/logout"
-            android:checked="true"
+
             />
     </group>
 </menu>

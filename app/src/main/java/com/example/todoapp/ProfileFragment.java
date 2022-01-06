@@ -144,7 +144,7 @@ public class ProfileFragment extends Fragment {
         switch (permission) {
             case GALLERY_PERMISSION_REQUEST_CODE:
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.CAMERA)) {
-                    Toast.makeText(getActivity(), "Galeri için izin vermelisiniz", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.permission_for_gallery, Toast.LENGTH_LONG).show();
                         getActivity().requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION_REQUEST_CODE);
                 } else {
                         ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION_REQUEST_CODE);

@@ -106,7 +106,7 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="all_fields">All Fields Required</string>
     <string name="it_is_time"> It is time!</string>
     <string name="notification">Notification</string>
-    <string name="done">Done!</string>
+    <string name="done">Done</string>
     <string name="add_notification">Add Notification</string>
     <string name="share">Share</string>
     <string name="edit">Edit</string>
@@ -123,4 +123,14 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="cancel">Cancel</string>
     <string name="set">Set</string>
     <string name="notification_set_to">Notification set to</string>
+    <string name="delete_confirmation">Delete Confirmation</string>
+    <string name="are_you_sure_delete_task">Are you sure you want to delete task ?</string>
+    <string name="task_done">Tasks Done</string>
+    <string name="task_not_added">Task not added!</string>
+    <string name="task_added_successfully">"ask added successfully</string>
+    <string name="failed_delete">Failed To Delete!</string>
+    <string name="deleted_successfully">Deleted Successfully!</string>
+    <string name="failed">"Failed</string>
+    <string name="permission_for_gallery">You must give permission for the gallery.</string>
+    <string name="share_via">Share via:</string>
 </resources>

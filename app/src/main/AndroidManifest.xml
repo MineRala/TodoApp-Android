@@ -26,8 +26,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DetailActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:exported="false" />
         <activity
             android:name=".NotificationActivity"
             android:exported="false"

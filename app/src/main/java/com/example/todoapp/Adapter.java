@@ -23,15 +23,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implements Filterable {
+public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     List<Model> tasksList;
     Model task;
     Listener listener;
-    List<Model> newList;
 
     interface Listener {
-        void onItemDeleteClicked(String itemId);
+        void onItemDeleteClicked(String itemId, int position);
         void onItemClicked(Model model);
         void onItemDone(String itemId, int isChecked);
     }
@@ -46,40 +45,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
         this.task  = new Model("","","","");
     }
 
-    @Override
-    public Filter getFilter() {
-        return exampleFilter;
-    }
-
-    private Filter exampleFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Model> filteredList = new ArrayList<>();
-            if (constraint != null || constraint.length() == 0) {
-                filteredList.addAll(newList);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Model item : newList) {
-                    if (item.getTitle().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(item);
-                    }
-                }
-
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            tasksList.clear();
-            tasksList.addAll((List) results.values);
-            notifyDataSetChanged();
-        }
-    };
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -90,18 +55,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        if (tasksList.size() != 0) {
-            task = tasksList.get(position);
+
+            Model task = tasksList.get(position);
             holder.title.setText(task.getTitle());
             holder.description.setText(task.getDescription());
             holder.time.setText(formatDate(task.getTimestamp()));
             holder.category.setText(task.getCategory());
+
             if (task.getIsDone() == 1) {
                 holder.todoCheckBox.setChecked(true);
             } else {
                 holder.todoCheckBox.setChecked(false);
             }
-        }
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,10 +80,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onItemDeleteClicked(tasksList.get(holder.getBindingAdapterPosition()).getId());
-                    tasksList.remove(holder.getBindingAdapterPosition());
-                    notifyItemRemoved(holder.getBindingAdapterPosition());
-
+                    listener.onItemDeleteClicked(tasksList.get(holder.getBindingAdapterPosition()).getId(), holder.getBindingAdapterPosition());
+                    // tasksList.remove(holder.getBindingAdapterPosition());
+                   // notifyItemRemoved(holder.getBindingAdapterPosition());
                 }
             }
         });
@@ -127,16 +92,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     listener.onItemDone(tasksList.get(holder.getBindingAdapterPosition()).getId(), 1);
-                    tasksList.remove(holder.getBindingAdapterPosition());
-                    notifyItemRemoved(holder.getBindingAdapterPosition());
                 } else {
                     listener.onItemDone(tasksList.get(holder.getBindingAdapterPosition()).getId(), 0);
-                    tasksList.remove(holder.getBindingAdapterPosition());
-                    notifyItemRemoved(holder.getBindingAdapterPosition());
                 }
+                tasksList.remove(holder.getBindingAdapterPosition());
+                notifyItemRemoved(holder.getBindingAdapterPosition());
             }
         });
-
     }
 
     @Override
@@ -176,7 +138,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
         }
     }
 
-    public void updateList(List<Model> updateList ) {
+    public void deleteItem(int position) {
+        tasksList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+
+    public void updateList(List<Model> updateList) {
         this.tasksList.clear();
         this.tasksList.addAll(updateList);
     }
@@ -184,6 +152,4 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     public void clearData() {
         this.tasksList.clear();
     }
-
-
 }
