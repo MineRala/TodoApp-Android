@@ -23,7 +23,6 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back);
-
         setSupportActionBar(toolbar);
         setTitle(R.string.task_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

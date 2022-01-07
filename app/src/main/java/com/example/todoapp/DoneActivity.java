@@ -29,7 +29,6 @@ public class DoneActivity extends AppCompatActivity {
         setTitle(R.string.task_done);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         database = new Database(this);
         adapter = new Adapter(this);
         adapter.updateList(database.getIsDoneTasks());

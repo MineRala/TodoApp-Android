@@ -52,14 +52,13 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         MainActivity.getInstance().bottomNavigationView.setVisibility(View.VISIBLE);
         fab = view.findViewById(R.id.fab);
-        recyclerView = view.findViewById(R.id.tasksRecyclerListView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         tasksList = new ArrayList<>();
         database = new Database(getContext());
-
+        recyclerView = view.findViewById(R.id.tasksRecyclerListView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new Adapter(getContext());
         adapter.updateList(database.getIsNotDoneTasks());
-
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(v -> {
