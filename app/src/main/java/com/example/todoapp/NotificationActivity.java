@@ -44,8 +44,6 @@ public class NotificationActivity extends AppCompatActivity {
             button.setVisibility(View.VISIBLE);
         } else
             super.onBackPressed();
-        Intent intent = new Intent(NotificationActivity.this,MainActivity.class);
-        startActivity(intent);
     }
 
 }
