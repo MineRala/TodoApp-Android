@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 public class NotificationFragment extends Fragment implements View.OnClickListener{
     public int notificationId = 1;
-    TextView cancelButton, saveButton, getTimeButton;
+    TextView  saveButton, getTimeButton;
     EditText name;
     TimePicker timePicker;
     ConstraintLayout constraintLayout;
@@ -40,10 +40,8 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_notification, container, false);
         saveButton = view.findViewById(R.id.saveButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
         name = view.findViewById(R.id.editName);
         timePicker = view.findViewById(R.id.timePicker);
-        cancelButton.setOnClickListener((View.OnClickListener) this);
         saveButton.setOnClickListener((View.OnClickListener) this);
         getTimeButton = view.findViewById(R.id.buttonGetTime);
         constraintLayout = view.findViewById(R.id.constraintLayout);
@@ -96,10 +94,6 @@ public class NotificationFragment extends Fragment implements View.OnClickListen
                         })
                         .setActionTextColor(getResources().getColor(R.color.red))
                         .show();
-                break;
-
-            case R.id.cancelButton:
-                alarmManager.cancel(alarmIntent);
                 break;
         }
 

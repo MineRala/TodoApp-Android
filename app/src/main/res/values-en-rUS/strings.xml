@@ -112,6 +112,7 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="edit">Edit</string>
     <string name="location">Location</string>
     <string name="location_stop">The location process has been stopped.</string>
+    <string name="location_start">The location process has been started.</string>
     <string name="coordinates">Coordinates</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
@@ -127,7 +128,7 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="are_you_sure_delete_task">Are you sure you want to delete task ?</string>
     <string name="task_done">Tasks Done</string>
     <string name="task_not_added">Task not added!</string>
-    <string name="task_added_successfully">"ask added successfully</string>
+    <string name="task_added_successfully">"Task added successfully</string>
     <string name="failed_delete">Failed To Delete!</string>
     <string name="deleted_successfully">Deleted Successfully!</string>
     <string name="failed">"Failed</string>

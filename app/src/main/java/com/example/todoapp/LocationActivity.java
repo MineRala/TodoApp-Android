@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +23,24 @@ public class LocationActivity extends AppCompatActivity {
     Button start, stop;
     TextView textView;
     BroadcastReceiver broadcastReceiver;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_location);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle(R.string.location);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        start = findViewById(R.id.startService);
+        stop = findViewById(R.id.stopService);
+        textView = findViewById(R.id.textViewCoordinate);
+
+        if (!runtimePermission()) {
+            enableButton();
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -45,7 +64,6 @@ public class LocationActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -53,23 +71,6 @@ public class LocationActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setTitle(R.string.location);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        start = findViewById(R.id.startService);
-        stop = findViewById(R.id.stopService);
-        textView = findViewById(R.id.textViewCoordinate);
-
-        if (! runtimePermission()) {
-            enableButton();
-        }
-    }
 
     private void enableButton() {
         start.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,7 @@ public class LocationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),GPS_Service.class);
                 startService(intent);
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.location_start),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -89,7 +91,6 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private boolean runtimePermission() {
         if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&

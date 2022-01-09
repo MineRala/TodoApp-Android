@@ -111,6 +111,7 @@ If you have any questions or suggestions about my Privacy Policy, do not hesitat
     <string name="edit">Edit</string>
     <string name="location">Location</string>
     <string name="location_stop">The location process has been stopped.</string>
+    <string name="location_start">The location process has been started.</string>
     <string name="coordinates">Coordinates</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>

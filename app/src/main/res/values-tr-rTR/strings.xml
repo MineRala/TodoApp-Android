@@ -112,6 +112,7 @@ Gizlilik Politikam hakkında herhangi bir sorunuz veya öneriniz varsa, benimle 
     <string name="edit">Güncelle</string>
     <string name="location">Lokasyon</string>
     <string name="location_stop">Lokasyon işlemi durduruldu!</string>
+    <string name="location_start">Lokasyon işlemi başlatıldı!</string>
     <string name="coordinates">Koordinatlar</string>
     <string name="longitude">Boylam</string>
     <string name="latitude">Enlem</string>
